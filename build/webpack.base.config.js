@@ -11,13 +11,13 @@ module.exports = {
   entry: (filepathList => {
     const entry = {};
     filepathList.forEach(filepath => {
-      const list = filepath.split(/[\/|\/\/|\\|\\\\]/g);
+      const list = filepath.split(/(\/|\/\/|\\|\\\\)/g);
       const key = list[list.length - 1].replace(/\.js/g, '');
       // 如果是开发环境，才需要引入 hot module
       entry[key] = isDev ? [ filepath, 'webpack-hot-middleware/client?reload=true' ] : filepath;
     });
     return entry;
-  })(glob.sync(resolve(__dirname, '../app/public/js/*.js'))),
+  })(glob.sync(resolve(__dirname, '../src/js/*.js'))),
 
   output: {
     path: resolve(__dirname, `../${CONFIG.DIR.DIST}`),
@@ -28,10 +28,10 @@ module.exports = {
 
   resolve: {
     alias: {
-      '@': resolve(__dirname, '../app/public'),
-      js: resolve(__dirname, '../app/public/js'),
-      css: resolve(__dirname, '../app/public/css'),
-      less: resolve(__dirname, '../app/public/less'),
+      '@': resolve(__dirname, '../src'),
+      js: resolve(__dirname, '../src/js'),
+      css: resolve(__dirname, '../src/css'),
+      less: resolve(__dirname, '../src/less'),
     },
   },
 
@@ -114,12 +114,12 @@ module.exports = {
       $: 'jquery',
     }),
     // 打包文件
-    ...glob.sync(resolve(__dirname, '../app/view/*.ejs'))
+    ...glob.sync(resolve(__dirname, '../src/view/*.ejs'))
       .map(filepath => {
-        const tempList = filepath.split(/[\/|\/\/|\\|\\\\]/g);
+        const tempList = filepath.split(/(\/|\/\/|\\|\\\\)/g);
         const filename = `${CONFIG.DIR.VIEW}/${tempList[tempList.length - 1]}`;
         const template = filepath;
-        const fileChunk = filename.split('.')[0].split(/[\/|\/\/|\\|\\\\]/g)
+        const fileChunk = filename.split('.')[0].split(/(\/|\/\/|\\|\\\\)/g)
           .pop(); // eslint-disable-line
         const chunks = isDev ? [ fileChunk ] : [ 'manifest', 'vendors', fileChunk ];
         return new HtmlWebpackPlugin({ filename, template, chunks });

@@ -5,7 +5,7 @@
 	},
 	"DIR": {
 		"DIST": "dist",
-		"VIEW": "views",
+		"VIEW": "view",
 		"STYLE": "css",
 		"SCRIPT": "js",
 		"FONT": "fonts",
