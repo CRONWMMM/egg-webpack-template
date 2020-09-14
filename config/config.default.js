@@ -28,9 +28,11 @@ module.exports = appInfo => {
     mapping: {
       '.ejs': 'ejs',
     },
-    root: [
-      path.join(appInfo.baseDir, 'app/view'),
-    ].join(','),
+    defaultViewEngine: 'ejs',
+  };
+
+  config.static = {
+    prefix: '/public/',
   };
 
   // add your user config here

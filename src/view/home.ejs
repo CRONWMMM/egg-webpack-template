@@ -1,13 +1,28 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <!-- title -->
+    <% include ./includes/title.ejs %>
+    <!-- link -->
+    <% include ./includes/link.ejs %>
 </head>
 <body>
-    Hello Home!
+<div id="root">
+    <div class="animated backInRight" style="margin-top: 250px">
+        <% var welcomeText = 'Hello World!' %>
+        <% include includes/img.ejs %>
+        <% include includes/welcomeText.ejs %>
+        <div>
+            <%% if ( title == '首页' ) { %>
+            <p style="margin: 20px 0 20px">这是首页</p>
+            <%% } %>
+        </div>
+        <div class="github">
+            <span>By CRONWMMM - </span>
+            <a href="https://github.com/CRONWMMM/multi_page_app_template" class="link">GitHub</a>
+            <a href="https://juejin.im/post/5cb1aabdf265da037b6101d3" class="link">掘金专栏</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -7,13 +7,14 @@
     "declarations": true
   },
   "dependencies": {
+    "axios": "^0.20.0",
+    "develop": "^1.0.0",
     "egg": "^2.15.1",
     "egg-scripts": "^2.11.0",
     "egg-view-ejs": "^2.0.1",
     "egg-webpack": "^4.5.4"
   },
   "devDependencies": {
-    "@easy-team/easywebpack": "^4.2.8",
     "autod": "^3.0.1",
     "autod-egg": "^1.1.0",
     "autoprefixer": "^9.1.0",
@@ -42,14 +43,11 @@
     "img-loader": "^3.0.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
-    "memory-fs": "^0.4.1",
-    "nodemon": "^1.18.4",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss": "^7.0.2",
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^3.0.0",
     "px2rem-loader": "^0.1.9",
-    "raw-loader": "^2.0.0",
     "rimraf": "^2.6.2",
     "style-loader": "^0.22.1",
     "url-loader": "^1.0.1",

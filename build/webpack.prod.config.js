@@ -42,7 +42,7 @@ module.exports = webpackMerge(webpackBaseConfig, {
             // 这边可以用到 loader 的另一种函数写法，其中 options.realResource 就是当前被处理文件的绝对路径
             // 这边可以用样式文件夹来区分，如果是 /pc/ 文件夹下的样式文件，就使用 1920px 版本，否则使用 750px
             // ({ realResource }) => /\\mobile\\/i.test(realResource) ? 'px2rem-loader?remUnit=75' : 'px2rem-loader?remUnit=192',
-            'px2rem-loader?remUnit=192',
+            // 'px2rem-loader?remUnit=192',
             'less-loader',
           ],
         }),

@@ -1,3 +1,11 @@
 {
-  "extends": "eslint-config-egg"
+  "extends": "eslint-config-egg",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-else-return": "off",
+    "no-undef": "off",
+    "strict": "off"
+  }
 }

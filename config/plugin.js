@@ -1,5 +1,3 @@
-'use strict';
-
 /** @type Egg.EggPlugin */
 module.exports = {
   // had enabled by egg
@@ -14,5 +12,10 @@ module.exports = {
   ejs: {
     enable: true,
     package: 'egg-view-ejs',
+  },
+
+  static: {
+    enable: true,
+    package: 'egg-static',
   },
 };

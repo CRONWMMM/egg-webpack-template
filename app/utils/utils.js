@@ -1,5 +1,3 @@
-'use strict';
-
 const axios = require('axios');
 // const ejs = require('ejs');
 const CONFIG = require('../../build/config');
@@ -15,23 +13,22 @@ function getTemplateString(filename) {
 
 /**
  * render 方法
- * @param res express 的 res 对象
+ * @param ctx egg 的 ctx 对象
  * @param filename 需要渲染的文件名
  * @param data ejs 渲染时需要用到的附加对象
  * @return {Promise<*|undefined>}
  */
-async function render(res, filename) {
+async function render(ctx, filename, data = {}) {
   // 文件后缀
   const ext = '.ejs';
   filename = filename.indexOf(ext) > -1 ? filename.split(ext)[0] : filename;
   try {
     if (isDev) {
-      // TODO something
+      const template = await getTemplateString(`${filename}${ext}`);
+      ctx.body = await ctx.renderString(template, data);
     } else {
-      // TODO something
+      await ctx.render(`${filename}${ext}`);
     }
-    const template = await getTemplateString(`${filename}.ejs`);
-    return Promise.resolve(template);
   } catch (e) {
     return Promise.reject(e);
   }
