@@ -72,7 +72,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(eot|woff2|woff|ttf)$/,
+        test: /\.(eot|woff2|woff|ttf|otf)$/,
         use: {
           loader: 'url-loader',
           options: {
