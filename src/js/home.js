@@ -10,7 +10,7 @@ async function welcome() {
 function sayHello() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve('hello world123qwewqewqeasdasd');
+      resolve('hello world');
     }, 2000);
   });
 }
