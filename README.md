@@ -50,7 +50,7 @@
 #### 关于使用 script / link 标签引入
 `js` 文件和样式文件，都可以在页面的入口 `js` 文件中使用 `import` 方式进行引入，考虑到有项目需要使用一些全局的样式库（比如 `bootstrap`），因此还是有需要标签引入资源的场景。
 
-1. 需要在 `webpack` 配置文件中使用 `copy-webpack-plugin` 将对应路径下的资源文件拷贝至打包后的文件夹中。
+1. `webpack` 配置文件中默认已使用 `copy-webpack-plugin` 将对应路径下的不变资源文件（`lib` 文件等）拷贝至打包后的文件夹中，这块可根据需要自行修改。
 2. 在页面中需要使用 `<script> / <link>` 标签引入资源，注意！引入时需要使用 `publicPath` 配置对应的路由地址，否则无法访问到。
 3. 开发环境下的 `publicPath` 默认指向 `/src/static/`，标签引入资源时，前缀写 `/public/` ，`egg-static` 默认会去 `/src/static` 下查找。需要修改开发环境下静态资源目录指向，在 `/config/config.local.js` 修改 `egg-static` 配置即可。
 
