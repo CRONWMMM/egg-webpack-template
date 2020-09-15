@@ -14,7 +14,11 @@ module.exports = {
       const list = filepath.split(/(\/|\/\/|\\|\\\\)/g);
       const key = list[list.length - 1].replace(/\.js/g, '');
       // 如果是开发环境，才需要引入 hot module
-      entry[key] = isDev ? [ filepath, 'webpack-hot-middleware/client?reload=true' ] : filepath;
+      entry[key] = isDev ?
+        [
+          filepath,
+          'webpack-hot-middleware/client?path=http://127.0.0.1:9000/__webpack_hmr&noInfo=false&reload=true&quiet=false',
+        ] : filepath;
     });
     return entry;
   })(glob.sync(resolve(__dirname, '../src/js/*.js'))),

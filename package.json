@@ -48,12 +48,12 @@
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^3.0.0",
     "px2rem-loader": "^0.1.9",
+    "raw-loader": "^2.0.0",
     "rimraf": "^2.6.2",
     "style-loader": "^0.22.1",
     "url-loader": "^1.0.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-middleware": "^3.4.0",
     "webpack-hot-middleware": "^2.24.3",
     "webpack-merge": "^4.1.5"
   },
@@ -61,10 +61,10 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-example",
+    "start": "cross-env NODE_ENV=production egg-scripts start --daemon --title=egg-server-example",
     "stop": "egg-scripts stop --title=egg-server-example",
-    "dev": "egg-bin dev",
-    "debug": "egg-bin debug",
+    "dev": "cross-env NODE_ENV=development egg-bin dev",
+    "debug": "cross-env NODE_ENV=development egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",
