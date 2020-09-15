@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const glob = require('glob');
 const { resolve } = require('path');
-const CONFIG = require('./config');
+const CONFIG = require('./config.dev');
 const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
@@ -17,18 +17,12 @@ module.exports = {
       entry[key] = isDev ?
         [
           filepath,
-          'webpack-hot-middleware/client?path=http://127.0.0.1:9000/__webpack_hmr&noInfo=false&reload=true&quiet=false',
+          // 这边注意端口号，之间安装的 egg-webpack，会启动 dev-server，默认端口号为 9000
+          `webpack-hot-middleware/client?path=http://127.0.0.1:${CONFIG.DEV_SERVER_PORT}/__webpack_hmr&noInfo=false&reload=true&quiet=false`,
         ] : filepath;
     });
     return entry;
   })(glob.sync(resolve(__dirname, '../src/js/*.js'))),
-
-  output: {
-    path: resolve(__dirname, `../${CONFIG.DIR.DIST}`),
-    publicPath: CONFIG.PATH.PUBLIC_PATH,
-    filename: `${CONFIG.DIR.SCRIPT}/[name].bundle.js`,
-    chunkFilename: `${CONFIG.DIR.SCRIPT}/[name].[chunkhash].js`,
-  },
 
   resolve: {
     alias: {

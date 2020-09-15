@@ -10,21 +10,21 @@ const path = require('path');
 module.exports = appInfo => {
   /**
    * built-in config
-   * @type {Egg.EggAppConfig}
+   * @type {{}}
    **/
   const config = exports = {};
-
-  // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1599807210902_4670';
 
   // add your middleware config here
   config.middleware = [];
 
-  config.view = {
-    mapping: {
-      '.ejs': 'ejs',
-    },
-    defaultViewEngine: 'ejs',
+  config.webpack = {
+    // port: 9000, // port: {Number}, default 9000. webpack dev server port, default 9000
+    webpackConfigList: [ require('../build/webpack.dev.config') ],
+  };
+
+  config.static = {
+    prefix: '/public/',
+    dir: path.join(appInfo.baseDir, 'src/static'),
   };
 
   // add your user config here

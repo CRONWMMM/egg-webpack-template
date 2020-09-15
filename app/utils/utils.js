@@ -1,6 +1,6 @@
 const axios = require('axios');
 // const ejs = require('ejs');
-const CONFIG = require('../../build/config');
+const CONFIG = require('../../build/config.dev');
 const isDev = process.env.NODE_ENV === 'development';
 
 function getTemplateString(filename) {

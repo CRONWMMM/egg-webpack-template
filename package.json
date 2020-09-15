@@ -12,7 +12,8 @@
     "egg": "^2.15.1",
     "egg-scripts": "^2.11.0",
     "egg-view-ejs": "^2.0.1",
-    "egg-webpack": "^4.5.4"
+    "egg-webpack": "^4.5.4",
+    "jquery": "^3.5.1"
   },
   "devDependencies": {
     "autod": "^3.0.1",
@@ -61,6 +62,8 @@
     "node": ">=10.0.0"
   },
   "scripts": {
+    "clear": "rimraf app/public/**/*",
+    "build": "npm run clear && cross-env NODE_ENV=production webpack --config ./build/webpack.prod.config.js",
     "start": "cross-env NODE_ENV=production egg-scripts start --daemon --title=egg-server-example",
     "stop": "egg-scripts stop --title=egg-server-example",
     "dev": "cross-env NODE_ENV=development egg-bin dev",

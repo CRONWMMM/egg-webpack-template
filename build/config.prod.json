@@ -1,4 +1,5 @@
 {
+	"HOST": "",
 	"PORT": 7001,
 	"PATH": {
 		"PUBLIC_PATH": "/public/"

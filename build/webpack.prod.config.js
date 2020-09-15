@@ -2,13 +2,21 @@
 
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
+const { resolve } = require('path');
 const OptimizeCss = require('optimize-css-assets-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
-const CONFIG = require('./config');
+const CONFIG = require('./config.prod');
 
 const webpackBaseConfig = require('./webpack.base.config');
 
 module.exports = webpackMerge(webpackBaseConfig, {
+  output: {
+    path: resolve(__dirname, '../', CONFIG.DIR.DIST),
+    publicPath: CONFIG.HOST + CONFIG.PATH.PUBLIC_PATH,
+    filename: `${CONFIG.DIR.SCRIPT}/[name].bundle.js`,
+    chunkFilename: `${CONFIG.DIR.SCRIPT}/[name].[chunkhash].js`,
+  },
+
   module: {
     rules: [
       {
