@@ -27,7 +27,7 @@ async function render(ctx, filename, data = {}) {
       const template = await getTemplateString(`${filename}${ext}`);
       ctx.body = await ctx.renderString(template, data);
     } else {
-      await ctx.render(`${filename}${ext}`);
+      await ctx.render(`${filename}${ext}`, data);
     }
   } catch (e) {
     return Promise.reject(e);

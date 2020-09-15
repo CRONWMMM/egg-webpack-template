@@ -5,6 +5,7 @@ class HomeController extends Controller {
   async index() {
     const { ctx } = this;
     await render(ctx, 'home.ejs', { title: '首页' });
+    // ctx.render('home.ejs', { title: '首页' });
   }
 }
 

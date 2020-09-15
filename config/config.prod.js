@@ -14,15 +14,6 @@ module.exports = appInfo => {
      **/
   const config = exports = {};
 
-  config.webpack = {
-    webpackConfigList: [ require('../build/webpack.build.config') ],
-  };
-
-  config.static = {
-    prefix: '/public/',
-    dir: path.join(appInfo.baseDir, 'src/static'),
-  };
-
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- title -->
+    <title><%= title %></title>
+
+    <!-- link -->
+    <link rel="stylesheet" href="/public/lib/animate.css" />
+
+<link href="/public/css/home.ce183.min.css" rel="stylesheet"></head>
+<body>
+<div id="root">
+    <div class="animated backInRight" style="margin-top: 180px">
+        
+        <!--
+	这块专门用来做 includes 文件中的图片引入展示
+ 	由于最后 includes 文件会被拼接到主文件中，然后再丢给 html-loader 解析
+ 	所以这块的图片路径需要写主文件下的相对路径，不然就找不到图片
+ -->
+<div class="logo-wrap">
+	<img class="logo webpack-logo" src="/public/imgs/webpack.5aafc.png" alt="webpack logo">
+	<span class="plus">+</span>
+	<img class="logo egg-logo" src="/public/imgs/egg.206fe.svg" alt="egg logo">
+</div>
+
+        <div class="welcome">Hello World!</div>
+
+        <div>
+            <% if ( title == '首页' ) { %>
+            <p style="margin: 20px 0 20px">这是首页</p>
+            <% } %>
+        </div>
+        <div class="github">
+            <span>By CRONWMMM - </span>
+            <a href="https://github.com/CRONWMMM/multi_page_app_template" class="link">GitHub</a>
+            <a href="https://juejin.im/post/5cb1aabdf265da037b6101d3" class="link">掘金专栏</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/public/js/manifest.bundle.js"></script><script type="text/javascript" src="/public/js/vendors.df916aa729da7a4ff123.js"></script><script type="text/javascript" src="/public/js/home.877048263ebb4812559a.js"></script></body>
+</html>

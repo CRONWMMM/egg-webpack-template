@@ -5,11 +5,12 @@
 		"PUBLIC_PATH": "/public/"
 	},
 	"DIR": {
-		"DIST": "dist",
-		"VIEW": "view",
+		"DIST": "/app/public",
+		"VIEW": "/app/view",
 		"STYLE": "css",
 		"SCRIPT": "js",
 		"FONT": "fonts",
-		"IMAGE": "imgs"
+		"IMAGE": "imgs",
+		"LIB": "lib"
 	}
 }

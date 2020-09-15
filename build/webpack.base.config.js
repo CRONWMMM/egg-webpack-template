@@ -3,9 +3,11 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const glob = require('glob');
-const { resolve } = require('path');
-const CONFIG = require('./config.dev');
+const { join, resolve } = require('path');
+const devConfig = require('./config.dev');
+const prodConfig = require('./config.prod');
 const isDev = process.env.NODE_ENV === 'development';
+const CONFIG = isDev ? devConfig : prodConfig;
 
 module.exports = {
   entry: (filepathList => {
@@ -24,6 +26,13 @@ module.exports = {
     return entry;
   })(glob.sync(resolve(__dirname, '../src/js/*.js'))),
 
+  output: {
+    path: join(__dirname, '..', CONFIG.DIR.DIST),
+    publicPath: CONFIG.HOST + CONFIG.PATH.PUBLIC_PATH,
+    filename: `${CONFIG.DIR.SCRIPT}/[name].bundle.js`,
+    chunkFilename: `${CONFIG.DIR.SCRIPT}/[name].[chunkhash].js`,
+  },
+
   resolve: {
     alias: {
       '@': resolve(__dirname, '../src'),
@@ -41,13 +50,13 @@ module.exports = {
         exclude: /(node_modules|lib|libs)/,
       },
       {
-        test: /\.(png|jpg|jpeg|gif)$/,
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
         use: [
           {
             loader: 'url-loader',
             options: {
               name: '[name].[hash:5].[ext]',
-              limit: 1000,
+              limit: 1024,
               outputPath: CONFIG.DIR.IMAGE,
             },
           },
@@ -63,18 +72,15 @@ module.exports = {
         ],
       },
       {
-        test: /\.(eot|woff2|woff|ttf|svg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: CONFIG.DIR.FONT,
-            },
+        test: /\.(eot|woff2|woff|ttf)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: '[name].[hash:5].[ext]',
+            limit: 1024,
+            outputPath: CONFIG.DIR.FONT,
           },
-          {
-            loader: 'url-loader',
-          },
-        ],
+        },
       },
       {
         test: /\.html$/,
@@ -120,7 +126,10 @@ module.exports = {
         const fileChunk = filename.split('.')[0].split(/(\/|\/\/|\\|\\\\)/g)
           .pop(); // eslint-disable-line
         const chunks = isDev ? [ fileChunk ] : [ 'manifest', 'vendors', fileChunk ];
-        return new HtmlWebpackPlugin({ filename, template, chunks });
+        return new HtmlWebpackPlugin({
+          filename: isDev ? filename : join(__dirname, '..', filename),
+          template,
+          chunks });
       }),
   ],
 };

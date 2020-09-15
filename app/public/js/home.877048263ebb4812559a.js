@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{29:function(o,n){},9:function(o,n,e){"use strict";e.r(n);e(10),e(29);!async function(){const o=await new Promise((o,n)=>{setTimeout(()=>{o("hello world")},2e3)});console.log(o)}()}},[[9,0,1]]]);
+//# sourceMappingURL=home.877048263ebb4812559a.js.map
