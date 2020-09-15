@@ -1,33 +1,71 @@
-# example
+# webpack4 + egg 服务端渲染多页应用最终解决方案
 
+#### 介绍
 
+针对多页应用开发需求，我们希望能够最大程度简化前端开发者的开发流程，提升开发效率。做到同一个项目中完成：
+**“前端本地开发 + 接口本地开发 + 前端代码构建部署 + 后端代码运行部署”** 的一条龙开发模式，没有中间商赚差价。 
 
-## QuickStart
+#### 适用场景
+1. 适用于强依赖 `SEO` 的项目，比如公司官网。
+2. 适用于以 `node` 做为服务端 / 中间层服务的项目架构，前端全栈开发。
 
-<!-- add docs here for user -->
+#### 解决痛点
 
-see [egg docs][egg] for more detail.
+1. 支持一键同时唤起本地 `webpack` 编译和 `egg` 服务，无需单独启动两个项目。
+2. 支持一个项目内，同时编写前端代码和后端接口，实时编写实时响应更新，全栈开发无缝切换。
+3. 支持开发时前后端整合，构建时前后端分离。
+4. 支持`webpack4` 自动识别构建前端多页应用，不需要新增一个页面就加一个 `webpack entry` 配置。
+5. 支持所有常规的 `ES6+` 语法。`babel` 自动编译打包，生产环境生成 `js bundle` 文件；支持 `less` 样式语言。
+6. 支持前端热更新。`js`、`css`、`less`、模板文件修改，自动监听重新编译，触发热更新。
+7. 编译报错机制完善，集成 `overlay` webpack 原生报错插件。
+8. 使用 `egg` 一整套生态作为后端服务，背靠阿里，稳定性强；服务端插件式集成 `egg-mysql`、`egg-redis`、`egg-socket.io` 等众多插件，即装即用，扩展定制性高。
+9. 支持后端监听、自动编译、重启。
 
-### Development
+#### 前置知识
 
-```bash
-$ npm i
-$ npm run dev
-$ open http://localhost:7001/
-```
+- `webpack4.0` 打包工具
+- `egg` 生态
+- `ejs`、`nunjucks` 或其他一种模板语言。
 
-### Deploy
+#### 软件架构
 
-```bash
-$ npm start
-$ npm stop
-```
+1. 打包工具：`webpack 4.16.5`
+2. 模板语言：`ejs 2.6.1`
+3. 服务端框架：`egg 2.15.1`
 
-### npm scripts
+#### 使用说明
 
-- Use `npm run lint` to check code style.
-- Use `npm test` to run unit test.
-- Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
+1. 安装依赖：`npm install`
+2. 开发环境：`npm run dev` 浏览器访问 `http://localhost:7001`
+2. debug：`npm run debug` 浏览器访问 `http://localhost:7001`
+3. 打包构建：`npm run build`，将前端生产环境代码构建至服务端。
+4. 生产环境：`npm run start`，生产环境运行服务端代码。
 
+#### 关于热更新
 
-[egg]: https://eggjs.org
+目前项目已全面支持热更新（`js/css/less/ejs` 文件修改均可热替换），关于热更新，有几点需要注意：
+1. 开发环境下，不要使用 `extract-text-webpack-plugin` 来做样式文件的抽离，否则 `webpack` 无法监听样式文件变化，样式热加载就不会生效。
+2. `webpack` 原生没有提供视图文件的热更新支持，原因是视图文件不是通过 `require/import` 方式引入的，webpack 无法监听其变化，这边我提供了一个扩展方式来支持视图热更新，具体实现可以看代码。
+
+#### 关于使用 script / link 标签引入
+`js` 文件和样式文件，都可以在页面的入口 `js` 文件中使用 `import` 方式进行引入，考虑到有项目需要使用一些全局的样式库（比如 `bootstrap`），因此还是有需要标签引入资源的场景。
+
+1. 需要在 `webpack` 配置文件中使用 `copy-webpack-plugin` 将对应路径下的资源文件拷贝至打包后的文件夹中。
+2. 在页面中需要使用 `<script> / <link>` 标签引入资源，注意！引入时需要使用 `publicPath` 配置对应的路由地址，否则无法访问到。
+3. 开发环境下的 `publicPath` 默认指向 `/src/static/`，标签引入资源时，前缀写 `/public/` ，`egg-static` 默认会去 `/src/static` 下查找。需要修改开发环境下静态资源目录指向，在 `/config/config.local.js` 修改 `egg-static` 配置即可。
+
+具体操作可 `clone` 该项目运行查看
+
+#### 改造使用
+
+1. 如果使用别的模板文件，例如 `nunjucks`，可能需要将 `ejs` 的相关 `loader` 替换为对应模板文件的 `loader`，并将项目中的 `ejs` 后缀也进行替换，这些替换可能涉及 `webpack` 构建文件和部分服务端文件，其他代码基本相同，无需改动。
+2. 推荐使用 `ejs` 作为源文件的视图文件使用，如果最终需要将 `ejs` 文件打包成 `html` 文件，可在 `build/config.json` 里修改 `EXT` 配置项，将默认值 `ejs` 改成 `html`，这样最终生成的就是 `html` 网页文件。
+3. 如果不需要使用模板文件，可将项目中的 `ejs` 文件替换为自己的 `html` 文件，并删除 `webpack` 中无关的模板处理  `loader` 例如该项目里使用到的 `ejs-html-loader`，只针对 `html` 后缀文件使用 `html-loader`（这些文件及文件名的修改和替换，可能涉及 webpack 构建文件和部分服务端文件，报错不用担心，仔细修改，根据错误提示多尝试几次应该没问题，实在不行可以给我 issue）。
+
+#### 参与贡献
+
+喜欢的话给个 Star，多谢多谢 😃😃，如果有问题提到 issue 里我来修复~
+
+#### 相关细节以及更多注意事项
+[掘金传送门](https://juejin.im/post/5cb1aabdf265da037b6101d3)
+

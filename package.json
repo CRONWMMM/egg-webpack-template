@@ -12,7 +12,6 @@
     "egg": "^2.15.1",
     "egg-scripts": "^2.11.0",
     "egg-view-ejs": "^2.0.1",
-    "egg-webpack": "^4.5.4",
     "jquery": "^3.5.1"
   },
   "devDependencies": {
@@ -28,6 +27,7 @@
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "cssnano": "^4.0.5",
+    "egg-webpack": "^4.5.4",
     "egg-bin": "^4.11.0",
     "egg-ci": "^1.11.0",
     "egg-mock": "^3.21.0",
