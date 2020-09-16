@@ -51,25 +51,14 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              name: '[name].[hash:5].[ext]',
-              limit: 1024,
-              outputPath: CONFIG.DIR.IMAGE,
-            },
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: '[name].[hash:5].[ext]',
+            limit: 1024,
+            outputPath: CONFIG.DIR.IMAGE,
           },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              disable: process.env.NODE_ENV !== 'production',
-              pngquant: {
-                quality: '80',
-              },
-            },
-          },
-        ],
+        },
       },
       {
         test: /\.(eot|woff2|woff|ttf|otf)$/,
