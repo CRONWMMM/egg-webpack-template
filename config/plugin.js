@@ -4,7 +4,7 @@ module.exports = {
   // static: {
   //   enable: true,
   // }
-  webpack: {
+  webpack: { // 开发环境，开启 egg-webpack 插件
     enable: process.env.NODE_ENV === 'development',
     package: 'egg-webpack',
   },

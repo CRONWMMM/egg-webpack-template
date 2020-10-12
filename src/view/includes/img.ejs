@@ -1,7 +1,12 @@
 <!--
-	这块专门用来做 includes 文件中的图片引入展示
- 	由于最后 includes 文件会被拼接到主文件中，然后再丢给 html-loader 解析
- 	所以这块的图片路径需要写主文件下的相对路径，不然就找不到图片
+	这块专门用来做 includes 文件中的图片引入展示，需要注意，这里的图片 src 可以有两种写法：
+	1. 直接写成 /public/... 的形式，
+	   egg 的 dev 环境配置文件 /config/config.local.js 中改写了 egg-static 的静态资源指向为 /src/static/。所以在 dev 环境图片资源是能够正常访问到的。
+	   但是由于生产环境下的 egg-static 的静态资源指向默认是 /app/public ，并且绝对路径的图片引用形式不会被被 webpack 识别处理，所以一定要保证生产环境下 /app/public 文件夹下有该图片资源，
+	   否则就是 404 资源请求。如果使用这种图片引用方式，推荐使用 copyWebpack 之类的插件做生产环境的静态资源的拷贝处理。
+    2. 写成 ../ 的相对路径形式，
+       相对路径的请求形式，是能够正常被 webpack 识别处理和复制的，所以并不需要开发者做额外处理，
+       只是由于这块是 includes 的文件，最后 includes 文件会被拼接到主文件中，然后再丢给 html-loader 解析，所以这块的图片路径需要写主文件下的相对路径，不然就找不到图片
  -->
 <div class="logo-wrap">
 	<img class="logo webpack-logo" src="../static/imgs/webpack.png" alt="webpack logo">
