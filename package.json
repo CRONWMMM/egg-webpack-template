@@ -62,6 +62,7 @@
   },
   "scripts": {
     "clear": "rimraf app/public/**/* app/view/**/*",
+    "deploy": "npm run build && npm start",
     "build": "npm run clear && cross-env NODE_ENV=production webpack --config ./build/webpack.prod.config.js",
     "start": "cross-env NODE_ENV=production egg-scripts start --daemon --title=egg-server-example",
     "stop": "egg-scripts stop --title=egg-server-example",
