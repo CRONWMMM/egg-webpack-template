@@ -28,7 +28,7 @@ module.exports = {
 
   output: {
     path: join(__dirname, '..', CONFIG.DIR.DIST),
-    publicPath: CONFIG.HOST + CONFIG.PATH.PUBLIC_PATH,
+    publicPath: CONFIG.PATH.PUBLIC_PATH,
     filename: `${CONFIG.DIR.SCRIPT}/[name].bundle.js`,
     chunkFilename: `${CONFIG.DIR.SCRIPT}/[name].[chunkhash].js`,
   },
